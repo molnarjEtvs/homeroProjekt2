@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeremRogzites extends Controller
 {
@@ -36,8 +37,11 @@ class TeremRogzites extends Controller
                 "mag_cm.max" => "Maximim 500"
             ]
         );
-
         
+        DB::insert("INSERT INTO termek (nev,szel_cm,hossz_cm,mag_cm) VALUES (?,?,?,?)",[$req->get('nev'),$req->get('szel_cm'),$req->get("hossz_cm"),$req->get("mag_cm")]);
+
+        return redirect("/terem-rogzites")->with("kesz","A terem rögzítése sikeres!");
+
 
     }
 }

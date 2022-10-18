@@ -7,6 +7,13 @@
              <div class="col-12">
                 <div class="bg-success p-3 rounded text-white">
                     <h1>Terem rögzítés</h1>
+
+                    @if (session()->get('kesz'))
+                        <div class="alert alert-success">
+                            {{ session()->get('kesz') }}
+                        </div>
+                    @endif
+
                     <form method="POST">
                         @csrf
                         <div class="mt-3 mb-3">
