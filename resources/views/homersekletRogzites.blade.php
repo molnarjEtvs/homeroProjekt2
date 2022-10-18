@@ -13,6 +13,9 @@
                             <label for="t_id">Terem száma:</label>
                             <select name="t_id" id="t_id" class="form-select">
                                 <option value="0">Válassz!</option>
+                                @foreach ($termek as $egyTerem)
+                                    <option value="{{ $egyTerem->t_id }}">{{ $egyTerem->nev }}</option>
+                                @endforeach
                             </select>
                         </div>
 
