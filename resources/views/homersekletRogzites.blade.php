@@ -17,11 +17,24 @@
                                     <option value="{{ $egyTerem->t_id }}">{{ $egyTerem->nev }}</option>
                                 @endforeach
                             </select>
+
+                            @error('t_id')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                         </div>
 
                         <div class="my-3">
                             <label for="homerseklet">Hőmérséklet (celsisus):</label>
-                            <input type="number" class="form-control" name="homerseklet" id="homerseklet">
+                            <input type="number" class="form-control" name="homerseklet" id="homerseklet" value="{{ old('homerseklet') }}">
+
+                            @error('homerseklet')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="my-3">
