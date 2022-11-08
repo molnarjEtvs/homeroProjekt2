@@ -39,7 +39,7 @@ class HomersekletRogzites extends Controller
         (?,?,?)",[$req->get('t_id'),$req->get('homerseklet'),date('Y-m-d H:i:s')]);
 
         
-
+        return redirect("/homerseklet-rogzites")->with("kesz","A hőmérséklet rögzítése kész!");
     }
 
 }

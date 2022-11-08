@@ -7,6 +7,13 @@
             <div class="col-12">
                 <div class="bg-primary p-3 text-white">
                     <h1>Hőmérséklet rögzítése</h1>
+
+                    @if (session()->get('kesz'))
+                        <div class="alert alert-success">
+                            {{ session()->get('kesz') }}
+                        </div>
+                    @endif                    
+
                     <form method="POST">
                         @csrf
                         <div class="my-3">
