@@ -13,6 +13,9 @@
         <li class="nav-item">
           <a class="nav-link" href="./homerseklet-rogzites">Hőmérséklet rögzítés</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./terem-lista">Terem lista</a>
+        </li>
       </ul>
     </div>
 </nav>

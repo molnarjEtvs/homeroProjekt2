@@ -44,4 +44,10 @@ class TeremRogzites extends Controller
 
 
     }
+
+    public function teremLista(){
+        $termek = DB::select("SELECT * FROM termek WHERE 1");
+        return view("teremLista",["termek" => $termek]);
+    }
+
 }
