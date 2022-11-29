@@ -15,7 +15,43 @@ class Aktualis extends Controller
          ON (termek.t_id=homersekletek.t_id) 
          GROUP BY termek.t_id 
          ORDER BY homersekletek.h_id DESC");
-        
-        return view("welcome",["aktualis" => $aktualis]);
+        /*
+        $lat = "46.08333";
+        $lon = "18.23333";
+        $i = $this->idojaras($lat,$lon);
+        print_r($i);*/
+
+        $telepulesek = DB::select("SELECT * FROM telepulesek");
+
+        return view("welcome",["aktualis" => $aktualis,"telepulesek" => $telepulesek]);
+    }
+
+    public function idojaras($lat,$lon){
+        $apiKey = "360dfc091e9b3af2707606bdacba0aa3";
+        $url = "https://api.openweathermap.org/data/2.5/weather?lat=".$lat."&lon=".$lon."&appid=".$apiKey;
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_HEADER,0);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($ch,CURLOPT_VERBOSE,0);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+        $valasz = curl_exec($ch);
+        curl_close($ch);
+        $idojarasAdatok = json_decode($valasz,true);
+        return $idojarasAdatok;
+    }
+
+    public function tIdojaras(Request $req){
+        $latLon = explode("|",$req->latLon); #46.08333|18.23333
+        $i = $this->idojaras($latLon[0],$latLon[1]);
+
+        $data['telepules'] = $i["name"];
+        $data['temp'] = round(($i["main"]["temp"]-272.15));
+        $data['wind_speed'] = $i['wind']['speed'];
+        $data['wind_deg'] = $i['wind']['deg'];
+        $data['kepUrl'] = "https://openweathermap.org/img/wn/".$i['weather'][0]['icon']."@2x.png";
+
+        return response()->json(["data" => $data]);
     }
 }

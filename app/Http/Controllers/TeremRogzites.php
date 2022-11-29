@@ -50,4 +50,9 @@ class TeremRogzites extends Controller
         return view("teremLista",["termek" => $termek]);
     }
 
+    public function teremTorles(Request $req){
+        DB::delete("DELETE FROM termek WHERE t_id=?",[$req->tid]);
+        $data['error'] = false;
+        return response()->json($data);
+    }
 }

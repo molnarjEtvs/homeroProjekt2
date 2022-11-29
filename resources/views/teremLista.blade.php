@@ -31,7 +31,7 @@
                                 <button class="btn btn-primary btn-sm">M</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="teremTorles({{ $item->t_id }});">törlés</button>
+                                <button class="btn btn-danger btn-sm" id="gomb_{{ $item->t_id }}" onclick="teremTorles({{ $item->t_id }});">törlés</button>
                             </td>
                         </tr>  
                         @endforeach
@@ -44,7 +44,24 @@
 
 <script>
     function teremTorles(tid){
-        $("#sor_"+id).remove();
+        //$("#sor_"+tid).remove();
+        $.ajax({
+            url:"./terem-torles",
+            type:"POST",
+            headers:{
+                "X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")
+            },
+            data:{"tid":tid},
+            cache:false,
+            async:false,
+            beforeSend:function(){
+                $("#gomb_"+tid).attr("disabled",true);
+            },
+            success:function(){
+                $("#sor_"+tid).remove();
+            }
+        });
+
     }
 </script>
 
